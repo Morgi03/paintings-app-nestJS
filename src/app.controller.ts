@@ -32,6 +32,7 @@ export class AppController {
 
   @Post('paintings/new')
   async newPainting(@Body() painting: paintingDto) {
+    painting.on_display = painting.on_display == 1;
     await db.execute(
       'INSERT INTO paintings (title, year, on_display) VALUES (?, ?, ?)',
       [painting.title, painting.year, painting.on_display],
