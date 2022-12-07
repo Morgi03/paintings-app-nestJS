@@ -1,16 +1,14 @@
 import { Get, Controller, Render } from '@nestjs/common';
+import db from './db';
 
 @Controller()
 export class AppController {
   @Get()
   @Render('list')
-  listpaintings() {
+  async listpaintings() {
+    const [rows] = await db.execute('SELECT title FROM paintings');
     return {
-      paintings: [
-        { title: 'Festmény1' },
-        { title: 'Festmény2' },
-        { title: 'Festmény3' },
-      ],
+      paintings: rows,
     };
   }
 
