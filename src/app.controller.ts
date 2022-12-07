@@ -5,7 +5,13 @@ export class AppController {
   @Get()
   @Render('list')
   listpaintings() {
-    return {};
+    return {
+      paintings: [
+        { title: 'Festmény1' },
+        { title: 'Festmény2' },
+        { title: 'Festmény3' },
+      ],
+    };
   }
 
   root() {
