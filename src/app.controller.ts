@@ -1,5 +1,14 @@
-import { Get, Controller, Render, Query, Param } from '@nestjs/common';
+import {
+  Get,
+  Controller,
+  Render,
+  Query,
+  Param,
+  Post,
+  Body,
+} from '@nestjs/common';
 import db from './db';
+import { paintingDto } from './painting.dto';
 
 @Controller()
 export class AppController {
@@ -13,6 +22,21 @@ export class AppController {
     return {
       paintings: rows,
     };
+  }
+
+  @Get('paintings/new')
+  @Render('form')
+  newPaintingForm() {
+    return {};
+  }
+
+  @Post('paintings/new')
+  async newPainting(@Body() painting: paintingDto) {
+    await db.execute(
+      'INSERT INTO paintings (title, year, on_display) VALUES (?, ?, ?)',
+      [painting.title, painting.year, painting.on_display],
+    );
+    return 'OK';
   }
 
   @Get('paintings/:id')
