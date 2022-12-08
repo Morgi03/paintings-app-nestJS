@@ -19,10 +19,19 @@
         margin: auto;
         display: table;
       }
+      #deleteBtn {
+        margin: auto;
+        display: table;
+        margin-top: 10px;
+        width: 250px;
+        height: 30px;
+        font-size: 22px;
+      }
     </style>
   </head>
   <body>
     <table>
+      <% if (painting !== null) { %>
       <tr>
         <th>Festmény Címe</th>
         <th>Festmény Kiállítási Éve</th>
@@ -39,6 +48,12 @@
               <% } %>
         </td>
       </tr>
+      <% } %>
     </table>
+    
+    <form method="post">
+      <input type="submit" value="delete" id="deleteBtn">
+    </form>
+ 
   </body>
 </html>
