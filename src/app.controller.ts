@@ -44,6 +44,25 @@ export class AppController {
     };
   }
 
+  @Get('paintings/:id/edit')
+  @Render('form')
+  newEditForm() {
+    return {};
+  }
+
+  @Post('paintings/:id/edit')
+  @Redirect()
+  async newEdit(@Body() painting: paintingDto, @Param('id') id: number) {
+    painting.on_display = painting.on_display == 1;
+    const [result]: any = await db.execute(
+      'UPDATE paintings SET title = ?, year = ?, on_display = ? WHERE id = ?',
+      [painting.title, painting.year, painting.on_display, id],
+    );
+    return {
+      url: '/paintings/' + id,
+    };
+  }
+
   @Get('paintings/:id')
   @Render('show')
   async showPainting(@Param('id') id: number) {
